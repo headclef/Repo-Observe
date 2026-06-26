@@ -11,7 +11,7 @@ public class Observe : BaseUnityPlugin
 {
     private const string PluginGuid = "headclef.Observe";
     private const string PluginName = "Observe";
-    private const string PluginVersion = "1.0.0";
+    private const string PluginVersion = "1.1.0";
 
     internal static Observe Instance { get; private set; } = null!;
     internal new static ManualLogSource Logger => Instance._logger;

@@ -1,8 +1,8 @@
 {
     "name": "Observe",
-    "version_number": "1.0.0",
+    "version_number": "1.1.0",
     "website_url": "https://github.com/headclef/Repo-Observe",
-    "description": "Press a key to reveal every valuable within 10m around you (even through walls), on a short cooldown, in R.E.P.O.",
+    "description": "Press a key to reveal every valuable within 10m around you (even through walls) and mark them on the map for a short time, on a cooldown, in R.E.P.O.",
     "dependencies": [
         "BepInEx-BepInExPack-5.4.2100"
     ]

@@ -4,11 +4,12 @@ A [BepInEx](https://github.com/BepInEx/BepInEx) mod for **R.E.P.O.** that reveal
 
 ## What This Mod Does
 
-Press **F** (configurable) to instantly reveal every valuable item within **10 meters** of you — even through walls. Each revealed item pops the game's own discovery indicator (the same one you see when you look directly at a valuable), so it feels completely native. The ability then goes on a short **cooldown**.
+Press **F** (configurable) to instantly reveal every valuable item within **10 meters** of you — even through walls. Each revealed item pops the game's own discovery indicator (the same one you see when you look directly at a valuable), so it feels completely native. The same valuables are also marked on the **map** for a short, configurable time, so you can pull up the map and see where they are. The ability then goes on a short **cooldown**.
 
 - Reveals **all** valuables in range — whether or not you've already discovered them.
 - Uses the game's **own** discovery graphic, so the reveal looks and lasts exactly like the vanilla effect.
-- **Client-side only** — only you see your reveal; it sends no network traffic and costs nothing to other players.
+- **Marks them on the map too** — adds the game's native map icon for each revealed valuable, then removes its own markers after a set duration (your genuinely discovered valuables stay on the map as usual).
+- **Client-side only** — only you see your reveal and map markers; it sends no network traffic and costs nothing to other players.
 
 ## Usage
 
@@ -23,6 +24,9 @@ Settings are in `BepInEx/config/headclef.Observe.cfg` or the in-game mod config 
 | Observe Key | `F` | any key | Key to reveal nearby valuables |
 | Radius | `10` | 1–50 | Reveal radius in meters |
 | Cooldown | `10` | 0–60 | Seconds between uses |
+| Show Cooldown Bar | `on` | on/off | Show the on-screen cooldown bar |
+| Show On Map | `on` | on/off | Also mark revealed valuables on the map |
+| Map Marker Duration | `10` | 1–60 | Seconds the map markers stay after a scan |
 
 ## Requirements
 
@@ -44,7 +48,8 @@ Settings are in `BepInEx/config/headclef.Observe.cfg` or the in-game mod config 
 ### Project Structure
 
 ```text
-├── Observe.cs                     # Plugin entry point & config
+├── Observe.cs                     # Plugin entry point, config & cooldown HUD
+├── MapReveal.cs                   # Temporary native map markers for revealed valuables
 ├── Patches/
 │   └── ObservePatch.cs            # Key polling, cooldown, and valuable reveal
 └── README.md
