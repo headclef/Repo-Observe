@@ -23,6 +23,8 @@ public class Observe : BaseUnityPlugin
     internal static ConfigEntry<float> Radius = null!;
     internal static ConfigEntry<float> Cooldown = null!;
     internal static ConfigEntry<bool> ShowCooldownBar = null!;
+    internal static ConfigEntry<bool> ShowOnMap = null!;
+    internal static ConfigEntry<float> MapMarkerDuration = null!;
 
     private GUIStyle? _hudStyle;
 
@@ -63,6 +65,17 @@ public class Observe : BaseUnityPlugin
 
         ShowCooldownBar = Config.Bind(section, "Show Cooldown Bar", true,
             "Show an on-screen bar and countdown while Observe is on cooldown.");
+
+        ShowOnMap = Config.Bind(section, "Show On Map", true,
+            "Also mark revealed valuables on the Map tool when you scan (in addition to the "
+            + "through-wall world marker). Client-side only — just you see them.");
+
+        MapMarkerDuration = Config.Bind(section, "Map Marker Duration", 10f,
+            new ConfigDescription(
+                "How long (seconds) revealed valuables stay marked on the map after a scan. "
+                + "Independent of the cooldown. Valuables you genuinely discover stay on the "
+                + "map as usual — this only governs the temporary markers Observe adds.",
+                new AcceptableValueRange<float>(1f, 60f)));
     }
 
     /// <summary>

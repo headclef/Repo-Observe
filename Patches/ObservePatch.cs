@@ -41,6 +41,9 @@ internal static class ObservePatch
             if (__instance != PlayerController.instance)
                 return;
 
+            // Expire any temporary map markers whose time is up (cheap; usually a no-op).
+            MapReveal.Tick();
+
             // Warm the discovery graphic once, lazily, after we're in a level.
             TryLazyPrewarm();
 
@@ -90,6 +93,12 @@ internal static class ObservePatch
         float sqrRadius = radius * radius;
         int revealed = 0, thisFrame = 0;
 
+        // Map layer: also drop a temporary native map marker for each revealed valuable.
+        bool showOnMap = Observe.ShowOnMap.Value;
+        float mapDuration = Observe.MapMarkerDuration.Value;
+        if (showOnMap)
+            MapReveal.RefreshOnMapSet();
+
         // ValuableObject has a transform (via its GameObject) and a physGrabObject the
         // discovery graphic attaches to.
         var valuables = UnityEngine.Object.FindObjectsOfType<ValuableObject>();
@@ -105,6 +114,11 @@ internal static class ObservePatch
             // full "found it" pop with the value; the graphic manages its own lifetime, so
             // the reveal lasts exactly the game's default duration.
             discover.New(valuable.physGrabObject, ValuableDiscoverGraphic.State.Discover, null);
+
+            // And mark it on the map (also local, also no RPC) for the configured duration.
+            if (showOnMap)
+                MapReveal.AddOrRefresh(valuable, mapDuration);
+
             revealed++;
 
             if (++thisFrame >= RevealsPerFrame)
