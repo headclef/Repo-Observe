@@ -1,6 +1,6 @@
 {
     "name": "Observe",
-    "version_number": "1.1.0",
+    "version_number": "1.1.1",
     "website_url": "https://github.com/headclef/Repo-Observe",
     "description": "Press a key to reveal every valuable within 10m around you (even through walls) and mark them on the map for a short time, on a cooldown, in R.E.P.O.",
     "dependencies": [
